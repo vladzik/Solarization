@@ -85,9 +85,9 @@ namespace Solarization
                         //G = (float)(k * G * (maxG - G));
                         //B = (float)(k * B * (maxB - B));
 
-                        R = (float)(k * R * (maxY - R));
-                        G = (float)(k * G * (maxY - G));
-                        B = (float)(k * B * (maxY - B));
+                        R = (float)(- k * R * (maxY - R) + maxY * maxY / 4);
+                        G = (float)(- k * G * (maxY - G) + maxY * maxY / 4);
+                        B = (float)(- k * B * (maxY - B) + maxY * maxY / 4);
 
                         UInt32 outPixel = 0xFF000000 | ((UInt32)R << 16 | (UInt32)G << 8 | (UInt32)B);
 
