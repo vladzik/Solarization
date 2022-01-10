@@ -38,10 +38,13 @@ namespace Solarization
                 Bitmap inputImg = new Bitmap(pictureBox1.Image);
                 Bitmap outputImg = new Bitmap(inputImg.Width, inputImg.Height);
 
-                double k = (double)trackBar1.Value / 500;
+                double k = (double)trackBar1.Value / 10000;
+                label1.Text = k.ToString();
                 int maxR = 0;
                 int maxG = 0;
                 int maxB = 0;
+
+                int maxY = 0;
 
 
 
@@ -55,9 +58,16 @@ namespace Solarization
                         float G = (float)((pixel & 0x0000FF00) >> 8);
                         float B = (float)(pixel & 0x000000FF);
 
-                        if (maxR < R) maxR = (int)R;
-                        if (maxG < G) maxR = (int)G;
-                        if (maxB < B) maxR = (int)B;
+                        //if (maxR < R) maxR = (int)R;
+                        //if (maxG < G) maxG = (int)G;
+                        //if (maxB < B) maxB = (int)B;
+
+                        //float Y = (float)(0.33 * R + 0.5 * G + 0.16 * B);
+                        //if (maxY < Y) maxY = (int)Y;
+
+                        if (maxY < R) maxY = (int)R;
+                        if (maxY < G) maxY = (int)G;
+                        if (maxY < B) maxY = (int)B;
                     }
                 }
 
@@ -71,9 +81,13 @@ namespace Solarization
                         float G = (float)((pixel & 0x0000FF00) >> 8);
                         float B = (float)(pixel & 0x000000FF);
 
-                        R = (float)(k * R * (maxR - R));
-                        G = (float)(k * G * (maxG - R));
-                        B = (float)(k * B * (maxB - R));
+                        //R = (float)(k * R * (maxR - R));
+                        //G = (float)(k * G * (maxG - G));
+                        //B = (float)(k * B * (maxB - B));
+
+                        R = (float)(k * R * (maxY - R));
+                        G = (float)(k * G * (maxY - G));
+                        B = (float)(k * B * (maxY - B));
 
                         UInt32 outPixel = 0xFF000000 | ((UInt32)R << 16 | (UInt32)G << 8 | (UInt32)B);
 
